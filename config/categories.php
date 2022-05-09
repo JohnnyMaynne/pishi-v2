@@ -1,0 +1,23 @@
+<?php
+return [
+    ['title' => 'Будущее', 'icon' => 'alien-icon','color' => '#AFA9B5'],
+    ['title' => 'Финансы', 'icon' => 'coin-icon','color' => '#B2ABC0'],
+    ['title' => 'Личный опыт', 'icon' => 'user-icon','color' => '#B4ADCB'],
+    ['title' => 'Маркетинг', 'icon' => 'chart-area-line-icon','color' => '#B7AFD6'],
+    ['title' => 'Сервисы', 'icon' => 'circles-icon','color' => '#B9B1E0'],
+    ['title' => 'Дизайн', 'icon' => 'brush-icon','color' => '#AEA7DD'],
+    ['title' => 'Соцсети', 'icon' => 'brand-youtube-icon','color' => '#9696D0'],
+    ['title' => 'Техника', 'icon' => 'backhoe-icon','color' => '#7E84C2'],
+    ['title' => 'Карьера', 'icon' => 'gauge-icon','color' => '#666587'],
+    ['title' => 'Медиа', 'icon' => 'cast-icon','color' => '#747392'],
+    ['title' => 'Торговля', 'icon' => 'businessplan-icon','color' => '#969A97'],
+    ['title' => 'История', 'icon' => 'feather-icon','color' => '#B6B6B2'],
+    ['title' => 'SEO', 'icon' => 'zoom-code-icon','color' => '#D6D1CD'],
+    ['title' => 'Разработка', 'icon' => 'code-plus-icon','color' => '#DEDFDB'],
+    ['title' => 'Видео', 'icon' => 'video-icon','color' => '#E5ECE9'],
+    ['title' => 'Фото', 'icon' => 'photo-icon','color' => '#CFE8EF'],
+    ['title' => 'Офтоп', 'icon' => 'ear-icon','color' => '#C6DBF0'],
+    ['title' => 'Транспорт', 'icon' => 'bus-icon','color' => '#BAD6EB'],
+    ['title' => 'Еда', 'icon' => 'cookie-icon','color' => '#AED1E6'],
+    ['title' => 'Отдых', 'icon' => 'beach-icon','color' => '#A0C4E2'],
+];

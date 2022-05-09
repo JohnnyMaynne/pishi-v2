@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
-import { Head, Link } from '@inertiajs/inertia-vue3';
+import { Link } from '@inertiajs/inertia-vue3';
 import JetApplicationMark from '@/Jetstream/ApplicationMark.vue';
-import JetBanner from '@/Jetstream/Banner.vue';
 import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import JetNavLink from '@/Jetstream/NavLink.vue';
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
-import { BellIcon } from "vue-tabler-icons";
+import Container from "@/Components/App/Container.vue";
+
 
 defineProps({
     title: String,
@@ -31,14 +31,10 @@ const logout = () => {
 
 <template>
     <div>
-        <Head :title="title" />
-
-        <JetBanner />
-
         <div class="min-h-screen bg-gray-50">
             <nav class="bg-white border-b">
                 <!-- Primary Navigation Menu -->
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <container>
                     <div class="flex justify-between h-16">
                         <div class="flex">
                             <!-- Logo -->
@@ -72,68 +68,20 @@ const logout = () => {
                                     <template #trigger>
                                         <img class="h-8 w-8 rounded-full" :src="$page.props.user.current_team.profile_photo_url" alt="">
                                     </template>
-
-                                    <template #content>
-                                        <div class="w-60">
-                                            <!-- Team Management -->
-                                            <template v-if="$page.props.jetstream.hasTeamFeatures">
-                                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    Manage Team
-                                                </div>
-
-                                                <!-- Team Settings -->
-                                                <JetDropdownLink :href="route('teams.show', $page.props.user.current_team)">
-                                                    Team Settings
-                                                </JetDropdownLink>
-
-                                                <JetDropdownLink v-if="$page.props.jetstream.canCreateTeams" :href="route('teams.create')">
-                                                    Create New Team
-                                                </JetDropdownLink>
-
-                                                <div class="border-t border-gray-100" />
-
-                                                <!-- Team Switcher -->
-                                                <div class="block px-4 py-2 text-xs text-gray-400">
-                                                    Switch Teams
-                                                </div>
-
-                                                <template v-for="team in $page.props.user.all_teams" :key="team.id">
-                                                    <form @submit.prevent="switchToTeam(team)">
-                                                        <JetDropdownLink as="button">
-                                                            <div class="flex items-center">
-                                                                <svg
-                                                                    v-if="team.id == $page.props.user.current_team_id"
-                                                                    class="mr-2 h-5 w-5 text-green-400"
-                                                                    fill="none"
-                                                                    stroke-linecap="round"
-                                                                    stroke-linejoin="round"
-                                                                    stroke-width="2"
-                                                                    stroke="currentColor"
-                                                                    viewBox="0 0 24 24"
-                                                                ><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                                                <div>{{ team.name }}</div>
-                                                            </div>
-                                                        </JetDropdownLink>
-                                                    </form>
-                                                </template>
-                                            </template>
-                                        </div>
-                                    </template>
                                 </JetDropdown>
                             </div>
+
+                            <button class="ml-3">
+                                <BellIcon class="text-gray-500" stroke-width="1.7"/>
+                            </button>
 
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <JetDropdown align="right" width="48">
                                     <template #trigger>
-                                        <span class="inline-flex items-center rounded-md space-x-2">
-                                            <button>
-                                                <BellIcon class="text-gray-400" stroke-width="1.7"/>
-                                            </button>
                                             <button type="button" class="inline-flex items-center border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition">
                                                 <img class="h-10 w-10 rounded-full  object-cover" :src="$page.props.user.profile_photo_url" :alt="$page.props.user.name">
                                             </button>
-                                        </span>
                                     </template>
 
                                     <template #content>
@@ -142,8 +90,12 @@ const logout = () => {
                                             Управление аккаунтом
                                         </div>
 
+                                        <JetDropdownLink :href="route('user.posts')">
+                                            Мастерская
+                                        </JetDropdownLink>
+
                                         <JetDropdownLink :href="route('profile.show')">
-                                            Личный кабинет
+                                            Настройки
                                         </JetDropdownLink>
 
                                         <JetDropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
@@ -190,13 +142,13 @@ const logout = () => {
                             </button>
                         </div>
                     </div>
-                </div>
+                </container>
 
                 <!-- Responsive Navigation Menu -->
                 <div :class="{'block': showingNavigationDropdown, 'hidden': ! showingNavigationDropdown}" class="sm:hidden">
                     <div class="pt-2 pb-3 space-y-1">
                         <JetResponsiveNavLink :href="route('posts.latest')" :active="route().current('posts.latest')">
-                            Последнее
+                           Последнее
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink :href="route('posts.popular')" :active="route().current('posts.popular')">
                             Популярное
@@ -227,8 +179,12 @@ const logout = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
+                            <JetResponsiveNavLink :href="route('user.posts')" :active="route().current('user.posts')">
+                                Мастерская
+                            </JetResponsiveNavLink>
+
                             <JetResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
-                                Личный кабинет
+                                Настройка
                             </JetResponsiveNavLink>
 
                             <JetResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
@@ -299,8 +255,10 @@ const logout = () => {
             </header>
 
             <!-- Page Content -->
-            <main>
-                <slot />
+            <main class="py-6">
+                <container>
+                    <slot/>
+                </container>
             </main>
         </div>
     </div>

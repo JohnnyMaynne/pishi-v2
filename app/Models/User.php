@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Overtrue\LaravelFollow\Followable;
 
 class User extends Authenticatable
 {
@@ -17,6 +19,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+    use Followable;
 
     protected $fillable = [
         'name',
@@ -39,8 +42,18 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
-    protected function defaultProfilePhotoUrl()
+    protected function defaultProfilePhotoUrl(): string
     {
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=6466f1&background=e6e6ff';
+    }
+
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function scopeWithoutAuth(Builder $builder)
+    {
+        $builder->where('id', '!=', auth()->user()->id);
     }
 }
