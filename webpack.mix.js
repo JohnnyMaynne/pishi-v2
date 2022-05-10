@@ -1,4 +1,7 @@
+const webpackConfig = require('./webpack.config.js')
+
 const mix = require('laravel-mix');
+mix.disableNotifications()
 
 /*
  |--------------------------------------------------------------------------
@@ -16,9 +19,8 @@ mix.js('resources/js/app.js', 'public/js').vue()
         require('postcss-import'),
         require('tailwindcss'),
     ])
-    .alias({
-        '@': 'resources/js',
-    });
+    .webpackConfig(webpackConfig);
+
 
 mix.browserSync({
     proxy: 'pishi.test',

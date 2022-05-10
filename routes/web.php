@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\EditorsController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\LatestPostsController;
 use App\Http\Controllers\PostCategoriesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfilesController;
+use App\Http\Controllers\UserNotificationsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -67,8 +69,16 @@ Route::middleware([
         Route::get('statistics', [ProfilesController::class,'statistics'])->name('user.statistics');
     });
 
+    // user notifications
+    Route::get('notifications', [UserNotificationsController::class,'index'])->name('notifications.index');
+
+    // comments
+    Route::post('comments/{post:uuid}', CommentsController::class)->name('comments.store');
+
+
     // editor
-    Route::get('editor/{user:slug}/{post:uuid}', EditorsController::class)->name('editor.show');
+    Route::get('editor/{user:slug}/{post:uuid}', [EditorsController::class,'show'])->name('editor.show');
+    Route::put('editor/{post:uuid}', [EditorsController::class,'update'])->name('editors.update');
 
     // follows
     Route::post('follows/{user}', FollowsController::class)->name('follow.store');

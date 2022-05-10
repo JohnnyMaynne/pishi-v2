@@ -9,14 +9,19 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Overtrue\LaravelFavorite\Traits\Favoriteable;
 
 class Post extends Model implements Viewable
 {
-    use HasFactory, HasComments, InteractsWithViews;
+    use HasFactory, HasComments, InteractsWithViews, Favoriteable;
 
     protected $guarded = ['id'];
 
     protected $appends = ['date'];
+
+    protected $casts = [
+        'raw' => 'array'
+    ];
 
     public function user(): BelongsTo
     {

@@ -1,14 +1,25 @@
 <script setup>
 import Header from "./Partials/Header";
 import EditorComponent from "@/Components/Editor/EditorComponent";
-import {ref} from "vue";
+import {watch} from "vue";
+import {Inertia} from "@inertiajs/inertia";
+import Debounce from "@/Utils/Debounce";
 
 const props = defineProps({
     post: Object,
     user: Object
 })
 
-const raw = ref(props.post.raw)
+const raw = Debounce(props.post.raw, 700)
+
+watch(raw,raw => {
+    Inertia.put(route('editors.update',{post:props.post.uuid}),{
+        raw
+    },{
+        preserveState: true,
+        preserveScroll: true
+    })
+})
 
 
 </script>

@@ -18,7 +18,7 @@ const editor = useEditor({
     content: props.modelValue,
     editorProps: {
         attributes: {
-            class: 'prose min-w-full focus:outline-none',
+            class: 'prose prose-a:relative prose-a:z-10 prose-a:transition hover:prose-a:decoration-blue-600 prose-a:underline-offset-4 prose-a:decoration-blue-100 prose-a:decoration-2 prose-a:text-blue-600 min-w-full focus:outline-none',
         },
     },
     extensions,

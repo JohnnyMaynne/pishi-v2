@@ -14,9 +14,10 @@ class PostsController extends Controller
         views($post)->record();
 
         return  inertia('Posts/Show',[
-            'post' => $post,
+            'post' => $post->loadCount(['views','comments','favorites']),
             'author' => $user,
-            'categories' => PostCategory::get()
+            'categories' => PostCategory::get(),
+            'comments' => $post->comments()->get()->toTree()
         ]);
     }
 }

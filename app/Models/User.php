@@ -10,6 +10,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Overtrue\LaravelFavorite\Traits\Favoriter;
 use Overtrue\LaravelFollow\Followable;
 
 class User extends Authenticatable
@@ -20,6 +21,7 @@ class User extends Authenticatable
     use Notifiable;
     use TwoFactorAuthenticatable;
     use Followable;
+    use Favoriter;
 
     protected $fillable = [
         'name',
@@ -45,6 +47,11 @@ class User extends Authenticatable
     protected function defaultProfilePhotoUrl(): string
     {
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name) . '&color=6466f1&background=e6e6ff';
+    }
+
+    public function comments(): HasMany
+    {
+        return $this->hasMany(Comment::class);
     }
 
     public function posts(): HasMany
