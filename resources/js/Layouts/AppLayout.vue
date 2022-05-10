@@ -1,5 +1,5 @@
 <script setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, ref} from 'vue';
 import {Inertia} from '@inertiajs/inertia';
 import {Link} from '@inertiajs/inertia-vue3';
 import {usePage} from '@inertiajs/inertia-vue3'
@@ -12,17 +12,22 @@ import Container from "@/Components/App/Container.vue";
 import {$vfm, ModalsContainer} from 'vue-final-modal'
 import Notifications from "@/Components/App/Notifications";
 import { useToast } from "vue-toastification";
+import List from "@/Components/Categories/List";
 
 
 defineProps({
     title: String,
 });
 
+const categories = ref([])
+
 const showingNavigationDropdown = ref(false);
 
 const user = computed(() => usePage().props.value.user)
 
 const noty = computed(() => usePage().props.value.noty)
+
+const category = computed(() => usePage().props.value.category?.id)
 
 const logout = () => Inertia.post(route('logout'))
 
@@ -35,16 +40,13 @@ const openNoty = () => {
 
 const toast = useToast()
 
-onMounted(() => {
-    Echo.private(`App.Models.User.${user.value.id}`)
-        .notification(value =>  {
-            usePage().props.value.noty++
-            toast.success(value.title, {
-                timeout: 2000
-            });
-        })
-})
-
+Echo.private(`App.Models.User.${user.value.id}`)
+    .notification(value =>  {
+        usePage().props.value.noty++
+        toast.success(value.title, {
+            timeout: 2000
+        });
+    })
 </script>
 
 <template>
@@ -260,7 +262,16 @@ onMounted(() => {
             <!-- Page Content -->
             <main class="py-6">
                 <container>
-                    <slot/>
+                    <slot name="content">
+                        <div class="lg:grid lg:grid-cols-12 lg:gap-4">
+                            <div class="lg:col-span-3 xl:col-span-2">
+                                <List :current="category"/>
+                            </div>
+                            <div class="lg:col-span-9 xl:col-span-10">
+                                <slot/>
+                            </div>
+                        </div>
+                    </slot>
                 </container>
             </main>
         </div>

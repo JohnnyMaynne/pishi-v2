@@ -56,7 +56,8 @@ Route::middleware([
 
 
     // posts category
-    Route::get('categories/{category:slug}', PostCategoriesController::class)->name('categories.show');
+    Route::get('categories', [PostCategoriesController::class,'index'])->name('categories.index');
+    Route::get('categories/{category:slug}', [PostCategoriesController::class,'show'])->name('categories.show');
 
 
     // profile

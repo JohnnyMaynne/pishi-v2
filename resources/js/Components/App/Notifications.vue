@@ -28,17 +28,17 @@ onMounted(async () => {
     >
         <sidebar title="Уведомления">
             <div v-if="noty" class="space-y-2">
-                <div v-for="item in noty.data" :key="item.id" class="p-4 bg-gray-100 rounded-md">
+                <div v-for="item in noty.data" :key="item.id" :class="[item.read_at ? 'bg-gray-100' : 'bg-indigo-500']" class="p-4 rounded-md">
                     <div class="flex items-start">
                         <div class="w-0 flex-1 pt-0.5">
-                            <div class="text-sm font-medium text-gray-900">
+                            <div :class="[item.read_at ? 'text-gray-900' : 'text-white']" class="text-sm font-medium">
                                 {{ item.data.title }}
                             </div>
-                            <div class="mt-1 text-sm text-gray-500">
+                            <div class="mt-1 text-sm" :class="[item.read_at ? 'text-gray-500' : 'text-white']">
                                 {{ item.data.subtitle }}
                             </div>
                             <div class="mt-2 flex space-x-7">
-                                <button @click="linkNoty(item.data.link)" type="button" class="rounded-md text-sm font-medium text-indigo-600 hover:text-indigo-500">
+                                <button @click="linkNoty(item.data.link)" type="button" :class="[item.read_at ? 'text-indigo-600 hover:text-indigo-500' : 'text-white opacity-70']" class="rounded-md text-sm font-medium">
                                     Подробнее
                                 </button>
                             </div>

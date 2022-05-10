@@ -59,7 +59,6 @@ defineProps({
                     <span class="inline-flex items-center text-sm">
                       <button type="button" class="inline-flex space-x-1 text-gray-500 hover:text-gray-600">
                           <share-icon class="h-5 w-5" stroke-width="1.5"/>
-                        <span class="font-medium">Share</span>
                       </button>
                     </span>
                 </div>

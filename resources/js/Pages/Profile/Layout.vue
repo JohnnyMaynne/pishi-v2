@@ -12,7 +12,8 @@ defineProps({
 
 <template>
     <AppLayout>
-        <div class="grid grid-cols-12 gap-6">
+        <template #content>
+            <div class="grid grid-cols-12 gap-6">
             <div class="col-span-2">
                 <JetResponsiveNavLink :href="route('user.posts')" :active="route().current('user.posts')">
                     <span class="text-sm">Статьи</span>
@@ -47,5 +48,6 @@ defineProps({
                 </div>
             </div>
         </div>
+        </template>
     </AppLayout>
 </template>

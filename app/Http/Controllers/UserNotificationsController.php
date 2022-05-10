@@ -10,8 +10,10 @@ class UserNotificationsController extends Controller
     {
         $user = auth()->user();
 
+        $noty = $user->notifications()->latest()->paginate();
+
         $user->unreadNotifications->markAsRead();
 
-        return $user->notifications()->latest()->paginate();
+        return $noty;
     }
 }

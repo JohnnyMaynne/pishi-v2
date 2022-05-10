@@ -1,5 +1,4 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
 import Layout from './Layout'
 
 defineProps({
@@ -9,8 +8,11 @@ defineProps({
 })
 </script>
 
+<script>
+import AppLayout from '@/Layouts/AppLayout.vue';
+export default { layout: AppLayout }
+</script>
+
 <template>
-    <AppLayout>
       <Layout :posts="posts" :categories="categories" :users="users"/>
-    </AppLayout>
 </template>

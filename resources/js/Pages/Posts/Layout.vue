@@ -7,17 +7,18 @@ import List from "@/Components/Categories/List";
 
 defineProps({
     posts: Object,
-    categories: Array,
     users: Array
 })
 </script>
 
+<script>
+import AppLayout from '@/Layouts/AppLayout.vue';
+export default { layout: AppLayout }
+</script>
+
 <template>
     <div class="lg:grid lg:grid-cols-12 lg:gap-4">
-        <div class="lg:col-span-3 xl:col-span-2">
-            <List :categories="categories"/>
-        </div>
-        <main class="lg:col-span-9 xl:col-span-6">
+        <main class="lg:col-span-12 xl:col-span-8">
             <ul role="list" class="space-y-4">
                <Card v-for="post in posts.data" :key="post.id" :post="post"/>
             </ul>

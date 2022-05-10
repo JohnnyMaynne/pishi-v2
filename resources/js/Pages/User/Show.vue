@@ -1,5 +1,4 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
 import List from "@/Components/Categories/List";
 import Header from "./Partials/Header";
 import Card from "@/Components/Posts/Card";
@@ -9,17 +8,17 @@ import CommentItem from "@/Components/Widgets/CommentItem";
 defineProps({
     author: Object,
     posts: Object,
-    categories: Array,
 })
 </script>
 
+<script>
+import AppLayout from '@/Layouts/AppLayout.vue';
+export default { layout: AppLayout }
+</script>
+
 <template>
-    <AppLayout>
-        <div class="lg:grid lg:grid-cols-12 lg:gap-4">
-            <div class="lg:col-span-2 xl:col-span-2">
-                <List :categories="categories"/>
-            </div>
-            <main class="lg:col-span-10 xl:col-span-10">
+    <div class="lg:grid lg:grid-cols-12 lg:gap-4">
+            <main class="lg:col-span-12 xl:col-span-12">
                 <Header :user="author" :posts="posts"/>
 
                 <div class="grid grid-cols-12 gap-4 mt-12">
@@ -43,5 +42,4 @@ defineProps({
                 </div>
             </main>
         </div>
-    </AppLayout>
 </template>

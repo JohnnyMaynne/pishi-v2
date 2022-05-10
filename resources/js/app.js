@@ -6,12 +6,17 @@ import { InertiaProgress } from '@inertiajs/progress'
 import VueTablerIcons from "vue-tabler-icons"
 import Toast from "vue-toastification";
 import "vue-toastification/dist/index.css";
+import Layout from '@/Layouts/AppLayout'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Пиши'
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
-    resolve: async (name) => await import(`@/Pages/${name}.vue`),
+    resolve: async (name) => {
+        const page = await import(`@/Pages/${name}.vue`)
+        page.layout = page.layout || Layout
+        return page
+    },
     setup({ el, app, props, plugin }) {
         return createApp({ render: () => h(app, props) })
             .use(plugin)
