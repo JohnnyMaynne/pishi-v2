@@ -20,8 +20,6 @@ watch(raw,raw => {
         preserveScroll: true
     })
 })
-
-
 </script>
 
 <template>

@@ -95,7 +95,7 @@ namespace App\Models{
  * @property string $uuid
  * @property string|null $title
  * @property int $published
- * @property string|null $raw
+ * @property array|null $raw
  * @property string|null $settings
  * @property string|null $excerpt
  * @property int|null $category_id
@@ -105,10 +105,21 @@ namespace App\Models{
  * @property-read \App\Models\PostCategory|null $category
  * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Comment[] $comments
  * @property-read int|null $comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $favoriters
+ * @property-read int|null $favoriters_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Overtrue\LaravelFavorite\Favorite[] $favorites
+ * @property-read int|null $favorites_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Recent[] $recents
+ * @property-read int|null $recents_count
  * @property-read \App\Models\User|null $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\CyrildeWit\EloquentViewable\View[] $views
+ * @property-read int|null $views_count
  * @method static \Database\Factories\PostFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post getRecents()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Post orderByUniqueViews(string $direction = 'desc', $period = null, ?string $collection = null, string $as = 'unique_views_count')
+ * @method static \Illuminate\Database\Eloquent\Builder|Post orderByViews(string $direction = 'desc', ?\CyrildeWit\EloquentViewable\Support\Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  * @method static \Illuminate\Database\Eloquent\Builder|Post query()
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereCreatedAt($value)
@@ -121,8 +132,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Post whereUuid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Post withViewsCount(?\CyrildeWit\EloquentViewable\Support\Period $period = null, ?string $collection = null, bool $unique = false, string $as = 'views_count')
  */
-	class Post extends \Eloquent {}
+	class Post extends \Eloquent implements \CyrildeWit\EloquentViewable\Contracts\Viewable {}
 }
 
 namespace App\Models{
@@ -151,6 +163,17 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * App\Models\Recent
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|Recent newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Recent newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Recent query()
+ */
+	class Recent extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\User
  *
  * @property int $id
@@ -167,6 +190,10 @@ namespace App\Models{
  * @property string|null $profile_photo_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Kalnoy\Nestedset\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\Overtrue\LaravelFavorite\Favorite[] $favorites
+ * @property-read int|null $favorites_count
  * @property-read \Illuminate\Database\Eloquent\Collection|User[] $followers
  * @property-read int|null $followers_count
  * @property-read \Illuminate\Database\Eloquent\Collection|User[] $followings

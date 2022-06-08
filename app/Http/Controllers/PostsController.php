@@ -11,6 +11,8 @@ class PostsController extends Controller
     {
         views($post)->record();
 
+        $post->makeRecent();
+
         return  inertia('Posts/Show',[
             'post' => $post->loadCount(['views','comments','favorites']),
             'author' => $user,

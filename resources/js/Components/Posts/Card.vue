@@ -1,5 +1,6 @@
 <script setup>
 import {Link} from "@inertiajs/inertia-vue3";
+import {useTimeAgo} from '@vueuse/core'
 
 defineProps({
     post: Object
@@ -22,7 +23,7 @@ defineProps({
                         </p>
                         <p class="text-sm text-gray-500">
                             <time :datetime="post.created_at">
-                                {{ post.date }}
+                               {{ useTimeAgo(post.created_at).value }}
                             </time>
                         </p>
                     </div>

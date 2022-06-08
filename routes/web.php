@@ -2,11 +2,15 @@
 
 use App\Http\Controllers\CommentsController;
 use App\Http\Controllers\EditorsController;
+use App\Http\Controllers\FavouritePostsController;
+use App\Http\Controllers\FavouritesController;
 use App\Http\Controllers\FollowsController;
 use App\Http\Controllers\LatestPostsController;
+use App\Http\Controllers\PopularPostsController;
 use App\Http\Controllers\PostCategoriesController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\ProfilesController;
+use App\Http\Controllers\RecentPostsController;
 use App\Http\Controllers\UserNotificationsController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Foundation\Application;
@@ -41,24 +45,13 @@ Route::middleware([
 
     // posts
     Route::get('latest', LatestPostsController::class)->name('posts.latest');
-
-    Route::get('popular', function () {
-        return Inertia::render('Posts/Popular');
-    })->name('posts.popular');
-
-    Route::get('favourite', function () {
-        return Inertia::render('Posts/Favourite');
-    })->name('posts.favourite');
-
-    Route::get('recent', function () {
-        return Inertia::render('Posts/Recent');
-    })->name('posts.recent');
-
+    Route::get('popular', PopularPostsController::class)->name('posts.popular');
+    Route::get('favourite', FavouritePostsController::class)->name('posts.favourite');
+    Route::get('recent', RecentPostsController::class)->name('posts.recent');
 
     // posts category
     Route::get('categories', [PostCategoriesController::class,'index'])->name('categories.index');
     Route::get('categories/{category:slug}', [PostCategoriesController::class,'show'])->name('categories.show');
-
 
     // profile
     Route::prefix('user')->group(function () {
@@ -70,12 +63,14 @@ Route::middleware([
         Route::get('statistics', [ProfilesController::class,'statistics'])->name('user.statistics');
     });
 
+    // user
+    Route::get('{user:slug}', UsersController::class)->name('user.show');
+
     // user notifications
     Route::get('notifications', [UserNotificationsController::class,'index'])->name('notifications.index');
 
     // comments
     Route::post('comments/{post:uuid}', CommentsController::class)->name('comments.store');
-
 
     // editor
     Route::get('editor/{user:slug}/{post:uuid}', [EditorsController::class,'show'])->name('editor.show');
@@ -84,9 +79,9 @@ Route::middleware([
     // follows
     Route::post('follows/{user}', FollowsController::class)->name('follow.store');
 
-    // user
-    Route::get('{user:slug}', UsersController::class)->name('user.show');
-
     // posts
     Route::get('{user:slug}/{post:uuid}', PostsController::class)->name('post.show');
+
+    // favourites
+    Route::post('favourites', FavouritesController::class)->name('favourites.invoke');
 });

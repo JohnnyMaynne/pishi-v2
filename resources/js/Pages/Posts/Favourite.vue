@@ -1,4 +1,10 @@
 <script setup>
+import Layout from "@/Pages/Posts/Layout";
+
+defineProps({
+    posts: Object,
+    users: Array,
+})
 </script>
 
 <script>
@@ -7,4 +13,5 @@ export default { layout: AppLayout }
 </script>
 
 <template>
+    <Layout :posts="posts" :users="users"/>
 </template>

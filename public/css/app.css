@@ -2931,12 +2931,8 @@ select {
     grid-column: span 9 / span 9 !important;
   }
 
-  .lg\:col-span-2 {
-    grid-column: span 2 / span 2 !important;
-  }
-
-  .lg\:col-span-10 {
-    grid-column: span 10 / span 10 !important;
+  .lg\:col-span-12 {
+    grid-column: span 12 / span 12 !important;
   }
 
   .lg\:-mx-8 {
@@ -2979,12 +2975,16 @@ select {
     grid-column: span 10 / span 10 !important;
   }
 
+  .xl\:col-span-12 {
+    grid-column: span 12 / span 12 !important;
+  }
+
   .xl\:col-span-4 {
     grid-column: span 4 / span 4 !important;
   }
 
-  .xl\:col-span-6 {
-    grid-column: span 6 / span 6 !important;
+  .xl\:col-span-8 {
+    grid-column: span 8 / span 8 !important;
   }
 
   .xl\:block {
